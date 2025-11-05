@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HEADER */
+header {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background-color: #f5e8dc; /* light beige */
+}
+
+header ul {
+  width: 40%;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+header ul li {
+  list-style: none;
+  cursor: pointer;
+}
+
+li a {
+  color: #4e342e; /* dark brown */
+  transition: all 0.3s;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+li a:hover {
+  color: #3e2723; /* deep brown */
+  background-color: #e6ccb2; /* soft tan */
+}
+
+li .login {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+header h2 {
+  margin-left: 1rem;
+  color: #3e2723; /* dark brown text */
+}
+
+/* SECTIONS */
+section {
+  height: 100vh;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.home {
+  display: flex;
+  margin-top: 6rem;
+  gap: 10rem;
+  position: relative;
+}
+
+.home .left h1 {
+  margin-bottom: 1rem;
+  color: #4e342e;
+}
+
+.home button {
+  color: white;
+  border: none;
+  background-color: #6d4c41; /* medium brown */
+  width: 200px;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.home button:hover {
+  background-color: #5d4037; /* darker brown */
+}
+
+.home .left h5 {
+  margin: 2rem 0;
+  color: #6d4c41;
+}
+
+/* CARDS */
+.card-container {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, 13rem);
+  cursor: pointer;
+}
+
+.card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  border-radius: 5px;
+  background-color: #fff8f0;
+}
+
+.card-body {
+  background-color: #f2e0c9; /* light coffee cream */
+  padding: 1rem;
+}
+
+.card-body .title {
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #3e2723;
+}
+
+.card-body .icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-body .timer {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4e342e;
+}
+
+/* ACTION ICONS */
+.action {
+  display: flex;
+  font-size: 19px;
+  justify-content: space-between;
+  align-items: center;
+  width: 45px;
+}
+
+.editIcon {
+  color: #5d4037;
+  font-size: 18px;
+}
+
+.action a:hover {
+  color: #3e2723;
+}
+
+.deleteIcon {
+  color: #d84315; /* burnt orange-brown */
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 34%;
+  z-index: 10;
+  padding: 2rem;
+  border-radius: 6px;
+  border: none;
+  left: 30%;
+  width: 40%;
+  background-color: #fffaf3; /* very light beige */
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(62, 39, 35, 0.75); /* dark brown overlay */
+  z-index: 9;
+}
+
+/* FORM */
+.form {
+  width: 71%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-header {
+  background-color: #d7ccc8;
+  height: 3px;
+  text-align: center;
+}
+
+.form-control {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.form-control .input,
+.form-control .input-textarea {
+  flex-basis: 70%;
+  border: 1px solid #a1887f; /* medium brown border */
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.form button {
+  margin: 2rem 0;
+  border: none;
+  background-color: #a98274; /* soft cocoa */
+  font-size: 14px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  color: white;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #8d6e63;
+}
+
+.form p {
+  cursor: pointer;
+  display: inline;
+  border-bottom: 1px solid #6d4c41;
+  color: #6d4c41;
+  font-size: 14px;
+}
+
+.form .error {
+  color: #b71c1c;
+  font-size: 13px;
+}
+
+/* FOOTER */
+.footer {
+  width: 100vw;
+  height: 30px;
+  color: white;
+  background-color: #4e342e;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 2px;
+  font-size: 14px;
+}
+
+/* RECIPE CONTAINERS */
+.outer-container {
+  width: 70%;
+  margin: 5rem auto;
+}
+
+.outer-container .profile {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.outer-container .title {
+  margin: 1rem 0;
+  text-transform: uppercase;
+  color: #3e2723;
+}
+
+.outer-container .recipe-details {
+  display: flex;
+  gap: 3rem;
+  align-items: justify;
+  margin-top: 1rem;
+}
+
+/* ACTIVE LINK */
+.active {
+  color: #3e2723 !important;
+  background-color: #f2e0c9;
+}
