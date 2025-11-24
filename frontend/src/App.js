@@ -11,7 +11,7 @@ import RecipeDetails from './pages/RecipeDetails'
 
 const getAllRecipes=async()=>{
   let allRecipes=[]
-  await axios.get('http://localhost:5000/api/recipe').then(res=>{
+  await axios.get('https://food-k1y4.onrender.com/api/recipe').then(res=>{
     allRecipes=res.data
   })
   return allRecipes
@@ -31,7 +31,7 @@ const getRecipe=async({params})=>{
   let recipe;
   console.log("Fetching recipe with ID:", params.id);
   try {
-    const recipeRes = await axios.get(`http://localhost:5000/api/recipe/${params.id}`);
+    const recipeRes = await axios.get(`https://food-k1y4.onrender.com/api/recipe/${params.id}`);
     recipe = recipeRes.data;
   } catch (error) {
     console.error("Error fetching recipe:", error.response ? error.response.data : error.message);
@@ -45,7 +45,7 @@ const getRecipe=async({params})=>{
 
   console.log("Fetching user with ID:", recipe.createdBy);
   try {
-    const userRes = await axios.get(`http://localhost:5000/api/user/${recipe.createdBy}`);
+    const userRes = await axios.get(`https://food-k1y4.onrender.com/api/user/${recipe.createdBy}`);
     recipe = {...recipe, email: userRes.data.email};
   } catch (error) {
     console.error("Error fetching user:", error.response ? error.response.data : error.message);

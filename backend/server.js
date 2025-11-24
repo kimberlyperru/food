@@ -16,10 +16,10 @@ connectDb();
 
 app.use(express.json());
 
-  app.use(cors(
-  // origin: "http://localhost:3000", // React dev server
-  // credentials: true
-));
+  app.use(cors({
+  origin: "https://foodrecipe-v0x1.onrender.com/", // React dev server
+  credentials: true
+}));
 
 
 app.use(express.static("public"));

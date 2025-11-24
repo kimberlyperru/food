@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.65087b0d.css",
-    "main.js": "/static/js/main.05f48449.js",
+    "main.js": "/static/js/main.5b09cbc4.js",
     "static/media/foodRecipe.png": "/static/media/foodRecipe.b9548fba87c3afc8159d.png",
     "static/media/profile.png": "/static/media/profile.adef74df01368bfe800e.png",
     "index.html": "/index.html",
     "main.65087b0d.css.map": "/static/css/main.65087b0d.css.map",
-    "main.05f48449.js.map": "/static/js/main.05f48449.js.map"
+    "main.5b09cbc4.js.map": "/static/js/main.5b09cbc4.js.map"
   },
   "entrypoints": [
     "static/css/main.65087b0d.css",
-    "static/js/main.05f48449.js"
+    "static/js/main.5b09cbc4.js"
   ]
 }
