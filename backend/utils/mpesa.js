@@ -34,7 +34,7 @@ export const initiateStkPush = async (phone, amount, accountReference, transacti
       Password: password,
       Timestamp: timestamp,
       TransactionType: "CustomerPayBillOnline",
-      Amount: amount,
+      Amount: 1,
       PartyA: formattedPhone,
       PartyB: SHORT_CODE,
       PhoneNumber: formattedPhone,

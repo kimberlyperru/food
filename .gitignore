@@ -2,7 +2,7 @@
 /node_modules/
 
 # environment files
-.env
+# .env
 
 # build and dist folders
 /build/
