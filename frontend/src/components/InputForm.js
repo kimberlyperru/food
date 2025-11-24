@@ -20,7 +20,7 @@ export default function InputForm({setIsOpen}) {
       if (isSignUp) {
         payload.phone = phone;
       }
-      const res = await axios.post(`http://localhost:5000/api/user/${endpoint}`, payload);
+      const res = await axios.post(`https://food-k1y4.onrender.com/api/user/${endpoint}`, payload);
       
       if (isSignUp && res.status === 202) {
         setPaymentMessage(res.data.message + " " + res.data.customerMessage);

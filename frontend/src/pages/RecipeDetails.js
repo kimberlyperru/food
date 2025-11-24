@@ -16,7 +16,7 @@ export default function RecipeDetails() {
       <h3 className="title">{recipe.title}</h3>
 
       <img
-        src={`http://localhost:5000/images/${recipe.coverImage}`}
+        src={`https://food-k1y4.onrender.com/images/${recipe.coverImage}`}
         width="220"
         height="200"
         alt={recipe.title}

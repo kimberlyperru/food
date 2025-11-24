@@ -10,7 +10,7 @@ export default function PaymentButton({ amount }) {
     const email = localStorage.getItem("email");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/mpesa/stkpush", {
+      const res = await axios.post("https://food-k1y4.onrender.com/api/mpesa/stkpush", {
         phone,
         amount,
         email,
@@ -23,7 +23,7 @@ export default function PaymentButton({ amount }) {
       const pollInterval = setInterval(async () => {
         try {
           const statusRes = await axios.get(
-            `http://localhost:5000/api/mpesa/status/${checkoutRequestID}`
+            `https://food-k1y4.onrender.com/api/mpesa/status/${checkoutRequestID}`
           );
           if (statusRes.data.isPaid) {
             setPaymentStatus("success");
