@@ -1,5 +1,5 @@
 import User from "../models/user.js";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { initiateStkPush } from "../utils/mpesa.js";
 
@@ -19,7 +19,7 @@ export const userSignUp = async (req, res) => {
     return res.status(400).json({ error: "Phone number already exists" });
   }
 
-  const hashedPwd = await bcrypt.hash(password, 10);
+  const hashedPwd = await bcryptjs.hash(password, 10);
   const newUser = await User.create({ email, password: hashedPwd, phone, isPaid: false });
 
   try {
@@ -66,7 +66,7 @@ export const userLogin = async (req, res) => {
     return res.status(403).json({ error: "Account not activated. Please complete the payment." });
   }
 
-  if (user && (await bcrypt.compare(password, user.password))) {
+  if (user && (await bcryptjs.compare(password, user.password))) {
     const token = jwt.sign(
       { email, id: user._id },
       process.env.SECRET_KEY
