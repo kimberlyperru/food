@@ -1,15 +1,16 @@
 import Recipe from "../models/recipe.js";
 import multer from "multer";
 import path from "path";
+import fs from "fs";
+
+// ✅ Ensure public/images folder exists
+const imagesDir = "public/images";
+if (!fs.existsSync(imagesDir)) fs.mkdirSync(imagesDir, { recursive: true });
 
 // ✅ Configure image upload
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/images");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+  destination: (req, file, cb) => cb(null, imagesDir),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 });
 
 export const upload = multer({ storage });
@@ -49,18 +50,37 @@ export const addRecipe = async (req, res) => {
     await newRecipe.save();
     res.status(201).json(newRecipe);
   } catch (err) {
+    console.error("Error adding recipe:", err);
     res.status(400).json({ message: err.message });
   }
 };
 
-// ✅ Edit recipe
+// ✅ Edit recipe (optional: replace image if uploaded)
 export const editRecipe = async (req, res) => {
   try {
-    const updated = await Recipe.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    res.json(updated);
+    const recipe = await Recipe.findById(req.params.id);
+    if (!recipe) return res.status(404).json({ message: "Recipe not found" });
+
+    // Update fields
+    recipe.title = req.body.title || recipe.title;
+    recipe.ingredients = req.body.ingredients || recipe.ingredients;
+    recipe.instructions = req.body.instructions || recipe.instructions;
+    recipe.createdBy = req.body.createdBy || recipe.createdBy;
+
+    // Replace image if new file uploaded
+    if (req.file) {
+      // Delete old image if exists
+      if (recipe.coverImage) {
+        const oldPath = path.join(imagesDir, recipe.coverImage);
+        if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+      }
+      recipe.coverImage = req.file.filename;
+    }
+
+    await recipe.save();
+    res.json(recipe);
   } catch (err) {
+    console.error("Error editing recipe:", err);
     res.status(400).json({ message: err.message });
   }
 };
@@ -68,9 +88,19 @@ export const editRecipe = async (req, res) => {
 // ✅ Delete recipe
 export const deleteRecipe = async (req, res) => {
   try {
+    const recipe = await Recipe.findById(req.params.id);
+    if (!recipe) return res.status(404).json({ message: "Recipe not found" });
+
+    // Delete image from filesystem if exists
+    if (recipe.coverImage) {
+      const imagePath = path.join(imagesDir, recipe.coverImage);
+      if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
+    }
+
     await Recipe.findByIdAndDelete(req.params.id);
     res.json({ message: "Recipe deleted" });
   } catch (err) {
+    console.error("Error deleting recipe:", err);
     res.status(500).json({ message: err.message });
   }
 };
