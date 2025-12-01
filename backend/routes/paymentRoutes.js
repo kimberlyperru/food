@@ -31,13 +31,17 @@ router.get("/status/:checkoutRequestID", async (req, res) => {
     const user = await User.findOne({ mpesaCheckoutRequestID: checkoutRequestID });
 
     if (!user) {
-      return res.status(404).json({ message: "Transaction not found" });
+      return res.status(404).json({ status: "pending" }); // must have "status" field
     }
 
-    res.json({ isPaid: user.isPaid });
+    if (user.isPaid) {
+      return res.json({ status: "success" }); // frontend expects "success"
+    } else {
+      return res.json({ status: "pending" });
+    }
   } catch (error) {
     console.error("Error getting payment status:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ status: "pending" });
   }
 });
 
