@@ -9,7 +9,7 @@ import axios from 'axios';
 
 export default function RecipeItems() {
     const recipes = useLoaderData()
-    const [allRecipes, setAllRecipes] = useState()
+    const [allRecipes, setAllRecipes] = useState([])
     let path = window.location.pathname === "/myRecipe" ? true : false
     let favItems = JSON.parse(localStorage.getItem("fav")) ?? []
     const [isFavRecipe, setIsFavRecipe] = useState(false)
@@ -17,11 +17,16 @@ export default function RecipeItems() {
     console.log(allRecipes)
 
     useEffect(() => {
-        setAllRecipes(recipes)
+        setAllRecipes(recipes || [])
     }, [recipes])
 
     const onDelete = async (id) => {
-        await axios.delete(`https://food-k1y4.onrender.com/recipe/${id}`)
+        const token = localStorage.getItem("token");
+        await axios.delete(`http://localhost:5000/api/recipe/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then((res) => console.log(res))
         setAllRecipes(recipes => recipes.filter(recipe => recipe._id !== id))
         let filterItem = favItems.filter(recipe => recipe._id !== id)
@@ -42,7 +47,7 @@ export default function RecipeItems() {
                     allRecipes?.map((item, index) => {
                         return (
                             <div key={index} className='card'onDoubleClick={()=>navigate(`/recipe/${item._id}`)}>
-                                <img src={`http://https://food-k1y4.onrender.com/images/${item.coverImage}`} width="120px" height="100px"></img>
+                                <img src={`http://localhost:5000/images/${item.coverImage}`} width="120px" height="100px"></img>
                                 <div className='card-body'>
                                     <div className='title'>{item.title}</div>
                                     <div className='icons'>

@@ -6,9 +6,17 @@ export default function RecipeDetails() {
   const recipe = useLoaderData();
   console.log(recipe);
 
+  if (!recipe) {
+    return (
+      <div className="outer-container">
+        <h3 className="title">Recipe not found</h3>
+      </div>
+    );
+  }
+
   // Use default image if coverImage is missing
   const recipeImage = recipe.coverImage
-    ? `https://food-k1y4.onrender.com/images/${recipe.coverImage}`
+    ? `http://localhost:5000/images/${recipe.coverImage}`
     : '/default-image.png'; // put default-image.png in your React public folder
 
   return (

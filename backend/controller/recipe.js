@@ -44,7 +44,7 @@ export const addRecipe = async (req, res) => {
       ingredients: req.body.ingredients,
       instructions: req.body.instructions,
       coverImage: req.file ? req.file.filename : null,
-      createdBy: req.body.createdBy,
+      createdBy: req.user.id,
     });
 
     await newRecipe.save();
@@ -61,11 +61,14 @@ export const editRecipe = async (req, res) => {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
 
+    if (recipe.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({ message: "You are not authorized to edit this recipe" });
+    }
+
     // Update fields
     recipe.title = req.body.title || recipe.title;
     recipe.ingredients = req.body.ingredients || recipe.ingredients;
     recipe.instructions = req.body.instructions || recipe.instructions;
-    recipe.createdBy = req.body.createdBy || recipe.createdBy;
 
     // Replace image if new file uploaded
     if (req.file) {
@@ -90,6 +93,10 @@ export const deleteRecipe = async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
+
+    if (recipe.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({ message: "You are not authorized to delete this recipe" });
+    }
 
     // Delete image from filesystem if exists
     if (recipe.coverImage) {
